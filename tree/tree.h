@@ -2,18 +2,20 @@
 	> File Name: tree.h
 	> Author: duqinglong
 	> Mail: du_303412@163.com 
-	> Created Time: 2016年04月06日 星期三 10时35分59秒
+	> Created Time: 2016年04月12日 星期二 09时47分44秒
  ************************************************************************/
 
 #ifndef _TREE_H_
 #define _TREE_H_
 
+#include<stdlib.h>
+
 #define ERROR(m)	\
-	do{perror(m); exit(EXIT_FAILURE);}while(0)
+	do{perror(m);exit(EXIT_FAILURE);}while(0)
 
 typedef int ElementType;
-typedef struct TreeNode *Position;
 typedef struct TreeNode *SearchTree;
+typedef struct TreeNode *Position;
 
 struct TreeNode
 {
@@ -21,7 +23,6 @@ struct TreeNode
 	SearchTree Left;
 	SearchTree Right;
 };
-
 
 SearchTree MakeEmpty(SearchTree T);
 Position Find(ElementType X, SearchTree T);

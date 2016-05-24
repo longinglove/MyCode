@@ -2,11 +2,11 @@
 	> File Name: tree.c
 	> Author: duqinglong
 	> Mail: du_303412@163.com 
-	> Created Time: 2016年04月06日 星期三 10时38分09秒
+	> Created Time: 2016年04月12日 星期二 09时47分48秒
  ************************************************************************/
 
-#include"tree.h"
-#include<stdlib.h>
+#include"tree.c"
+#include<stdio.h>
 
 SearchTree MakeEmpty(SearchTree T)
 {
@@ -23,7 +23,7 @@ Position Find(ElementType X, SearchTree T)
 {
 	if (T == NULL)
 		return NULL;
-	if (X < T->Element)
+	else if (X < T->Element)
 		return Find(X, T->Left);
 	else if (X > T->Element)
 		return Find(X, T->Right);
@@ -58,12 +58,8 @@ SearchTree Insert(ElementType X, SearchTree T)
 		T = malloc(sizeof(struct TreeNode));
 		if (T == NULL)
 			ERROR("malloc");
-		else
-		{
-			T->Element = X;
-			T->Left = NULL;
-			T->Right = NULL;
-		}
+		T->Element = X;
+		T->Right = T->Left = NULL;
 	}
 	else if (X < T->Element)
 		T->Left = Insert(X, T->Left);
@@ -75,33 +71,30 @@ SearchTree Insert(ElementType X, SearchTree T)
 SearchTree Delete(ElementType X, SearchTree T)
 {
 	Position temp;
-
 	if (T == NULL)
 		ERROR("empty tree");
 	else if (X < T->Element)
 		T->Left = Delete(X, T->Left);
 	else if (X > T->Element)
-		T->Right = Delete(X, T->Left);
-	else 
-		if (T->Left && T->Right)
-		{
-			temp = FindMin(T->Right);
-			T->Element = temp->Element;
-			T->Right = Delete(T->Element, T->Right);
-		}
-		else
-		{
-			temp = T;
-			if (T->Left == NULL)
-				T = T->Right;
-			else if (T->Right == NULL)
-				T = T->Left;
-			free(temp);
-		}
-	return T;
+		T->Right = Delete(X, T->Right);
+	else if (T->Right && T->Left)
+	{
+		temp = FindMin(T->Right);
+		T->Element = temp->Element;
+		T->Right = Delete(T->Element, T->Right);
+	}
+	else
+	{
+		temp = T;
+		if (T->Left == NULL)
+			T = T->Right;
+		else if (T->Right == NULL)
+			T= T->Left;
+		free(temp);
+	}
 }
 
 ElementType Retrieve(Position P)
 {
-	return P->Element;
+	return p->Element;
 }
